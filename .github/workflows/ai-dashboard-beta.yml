@@ -1,0 +1,16 @@
+name: AI Dashboard Beta
+on:
+  pull_request:
+  push:
+jobs:
+  beta:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      - name: Local verification
+        run: node beta/local-verify.mjs
+      - name: Beta CI policy (beta-ci.txt must equal ci-green when present)
+        run: node beta/ci-policy.mjs
